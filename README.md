@@ -34,7 +34,7 @@ pip install -r requirements.txt
 from main import WordAccuracyCalculator
 ```
 
-## How to use
+<!-- ## How to use
 
 See also [WordAccuracyCalculator_Example.ipynb](src/WordAccuracyCalculator_Example.ipynb) for example usage.
 
@@ -163,4 +163,4 @@ prc_TED.show_precision_recall_fscore()
 prc_TED.show_confusion_matrices()
 ```
 
-<img src="readme-img/confusion_matrices.PNG"></img>
+<img src="readme-img/confusion_matrices.PNG"></img> -->
