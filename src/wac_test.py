@@ -4,7 +4,7 @@ test.py
 Basic tests for WordAccuracyCalculator class
 """
 
-from main import WordAccuracyCalculator
+from wac_main import WordAccuracyCalculator
 
 
 if __name__ == "__main__":

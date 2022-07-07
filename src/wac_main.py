@@ -6,8 +6,8 @@ Main module for WordAccuracyCalculator class
 
 import pandas as pd
 
-from helper import (Int_or_Str, Str_or_List_or_Series, display_or_print,
-                    get_num_edits, get_tqdm, str_or_list_or_series_to_list)
+from wac_helper import (Int_or_Str, Str_or_List_or_Series, display_or_print,
+                        get_num_edits, get_tqdm, str_or_list_or_series_to_list)
 
 NON_EQUAL_LENGTH_ERROR = \
     "Hypothesis and reference lists must have equal length."
