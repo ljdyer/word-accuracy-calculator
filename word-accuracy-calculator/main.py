@@ -5,10 +5,9 @@ Main module for WordAccuracyCalculator class
 """
 
 import pandas as pd
-import textdistance
 
 from helper import (Int_or_Str, Str_or_List_or_Series, display_or_print,
-                    get_tqdm, str_or_list_or_series_to_list)
+                    get_num_edits, get_tqdm, str_or_list_or_series_to_list)
 
 NON_EQUAL_LENGTH_ERROR = \
     "Hypothesis and reference lists must have equal length."
@@ -80,7 +79,7 @@ class WordAccuracyCalculator:
         ref_list = ref.split()
         hyp_list = hyp.split()
         len_ref = len(ref_list)
-        num_edits = textdistance.levenshtein.distance(ref_list, hyp_list)
+        num_edits = get_num_edits(ref_list, hyp_list)
         acc = self.word_accuracy(len_ref, num_edits)
         return {'len_ref': len_ref, 'num_edits': num_edits,
                 'acc': acc}
