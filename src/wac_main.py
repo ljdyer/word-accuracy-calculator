@@ -103,7 +103,8 @@ class WordAccuracyCalculator:
 
     # ====================
     def show_metrics(self, doc_idx: Int_or_Str = 'all'):
-        """Show minimum edit distance, reference length, and word accuracy
+        """
+        Show minimum edit distance, reference length, and word accuracy
         for either a single document or the entire corpus.
 
         Optional keyword arguments:
@@ -111,7 +112,8 @@ class WordAccuracyCalculator:
         doc_idx: Int_or_Str         Either an integer indicating the index of
                                     the document to show metrics for, or 'all'
                                     to show metrics for all documents in the
-                                    corpus (the default behaviour)."""
+                                    corpus (the default behaviour).
+        """
 
         metrics = self.metrics[doc_idx]
         row_labels = [
