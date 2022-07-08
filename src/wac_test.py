@@ -34,7 +34,7 @@ if __name__ == "__main__":
     assert wac.metrics[1]['acc'] == 0.8
 
     assert wac.metrics[2]['len_ref'] == 4
-    # 'is' -> 'isn\'t', '3.' -> '7.' 
+    # 'is' -> 'isn\'t', '3.' -> '7.'
     # ==> 2 * substitution = 2
     assert wac.metrics[2]['num_edits'] == 2
     assert wac.metrics[2]['acc'] == 0.5

@@ -9,6 +9,8 @@ from typing import Any, Union
 import pandas as pd
 from tqdm import tqdm as non_notebook_tqdm
 from tqdm.notebook import tqdm as notebook_tqdm
+from jiwer.transformations import wer_default
+from jiwer.measures import _get_operation_counts, _preprocess
 
 Str_or_List_or_Series = Union[str, list, pd.Series]
 Int_or_Str = Union[int, str]
@@ -68,56 +70,20 @@ def str_or_list_or_series_to_list(
         return input_
     else:
         raise TypeError(REF_OR_HYP_TYPE_ERROR)
-
-
-# ====================
-def create_matrix(m, n):
-    """Create an m by n matrix"""
-
-    return [[0 for _ in range(m)] for _ in range(n)]
-
+        
 
 # ====================
-def get_num_edits(words_ref: list, words_hyp: list) -> dict:
+def get_num_edits(ref: str, hyp: str) -> dict:
 
-    # Create separate matrices for edit distances and backpointers
-    n = len(words_hyp) + 1
-    m = len(words_ref) + 1
-    matrix = create_matrix(m, n)
+    # jiwer library _preprocess with wer_default strips leading and
+    # trailing whitespace, splits on space characters, maps words
+    # to unique characters and joins together as string so that
+    # python-Levenshtein library can be used to calculate WER
+    ref_, hyp_ = _preprocess(ref, hyp, wer_default, wer_default)
 
-    # Initialize first row
-    for m_ in range(m):
-        matrix[0][m_] = m_
+    # _get_operation_counts returns hits, deletions, substitions,
+    # and insertions
+    _, S, D, I = _get_operation_counts(ref[0], hyp[0])
+    edits = sum([S, D, I])
 
-    # Initialize first column
-    for n_ in range(n):
-        matrix[n_][0] = n_
-
-    # Populate remainder of matrix
-    for n_ in range(1, n):
-        for m_ in range(1, m):
-
-            # Get distances from cells corresponding to each possible edit
-            edit_options = [
-                matrix[n_-1][m_-1],  # substitution
-                matrix[n_-1][m_],  # deletion
-                matrix[n_][m_-1]   # insertion
-            ]
-
-            # Find the minimum of the three distances
-            min_ = min(edit_options)
-
-            # If the words in the reference and hypothesis sentences match,
-            # don't make any edits.
-            if words_ref[m_-1] == words_hyp[n_-1]:
-                matrix[n_][m_] = min_
-
-            # If the words in the reference and hypothesis sentences are
-            # different, make an appropriate edit and add one to the distance.
-            else:
-                matrix[n_][m_] = min_ + 1
-
-    # Get minimum edit distance
-    edits = matrix[n-1][m-1]
-    
     return edits

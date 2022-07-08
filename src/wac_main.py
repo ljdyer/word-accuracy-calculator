@@ -76,17 +76,16 @@ class WordAccuracyCalculator:
 
         ref = self.reference[doc_idx].strip()
         hyp = self.hypothesis[doc_idx].strip()
-        ref_list = ref.split()
-        hyp_list = hyp.split()
-        len_ref = len(ref_list)
-        num_edits = get_num_edits(ref_list, hyp_list)
+        len_ref = len(ref.split())
+        num_edits = get_num_edits(ref, hyp)
         acc = self.word_accuracy(len_ref, num_edits)
         return {'len_ref': len_ref, 'num_edits': num_edits,
                 'acc': acc}
-        
+
     # ====================
     def get_metrics_all(self):
-        """Get the confusion matrix for the entire corpus."""
+        """Calculate minimum edit distance, reference length, and
+        word accuracy for the entire corpus"""
 
         len_ref_all = sum([
             self.metrics[doc_idx]['len_ref']
@@ -122,17 +121,18 @@ class WordAccuracyCalculator:
             'Word accuracy (%)'
         ]
         metrics_ = [
-            metrics['len_ref'],
-            metrics['num_edits'],
-            metrics['acc']
+            f"{metrics['len_ref']:,}",
+            f"{metrics['num_edits']:,}",
+            f"{metrics['acc']:.3f}%"
         ]
-        display_or_print(pd.DataFrame(metrics_, index=row_labels, columns=['Value']))
+        display_or_print(pd.DataFrame(metrics_, index=row_labels,
+                                      columns=['Value']))
 
     @staticmethod
     def word_accuracy(len_ref: int, num_edits: int) -> float:
         """Calculate word accuracy from reference length and minimum edit
         distance.
-        
+
         https://en.wikipedia.org/wiki/Word_error_rate"""
 
         return (len_ref - num_edits) / len_ref
