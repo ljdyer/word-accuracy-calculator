@@ -18,15 +18,21 @@ import sys
 sys.path.append('word-accuracy-calculator/src')
 ```
 
-### 2. Install requirements (if required)
+### 2. Install requirements
 
-There is no need to install any libraries in Google Colab, as all required libraries are already pre-installed by default.
+If working in Google Colab, the only library you need to install is jiwer
+
+```python
+!pip install jiwer
+```
 
 If working in a virtual environment, run the following in the src directory:
 
 ```python
 pip install -r requirements.txt
 ```
+
+:warning: You may not be able to install jiwer if you do not have Microsoft Visual C++ 14.0 installed on your computer. This is not an issue if working in Google Colab.
 
 ### 3. Import WordAccuracyCalculator class
 
