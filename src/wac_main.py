@@ -123,7 +123,7 @@ class WordAccuracyCalculator:
         metrics_ = [
             f"{metrics['len_ref']:,}",
             f"{metrics['num_edits']:,}",
-            f"{metrics['acc']:.3f}%"
+            f"{(metrics['acc']*100):.3f}%"
         ]
         display_or_print(pd.DataFrame(metrics_, index=row_labels,
                                       columns=['Value']))
