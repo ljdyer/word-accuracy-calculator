@@ -70,7 +70,7 @@ def str_or_list_or_series_to_list(
         return input_
     else:
         raise TypeError(REF_OR_HYP_TYPE_ERROR)
-        
+
 
 # ====================
 def get_num_edits(ref: str, hyp: str) -> dict:
@@ -83,7 +83,7 @@ def get_num_edits(ref: str, hyp: str) -> dict:
 
     # _get_operation_counts returns hits, deletions, substitions,
     # and insertions
-    _, S, D, I = _get_operation_counts(ref[0], hyp[0])
+    _, S, D, I = _get_operation_counts(ref_[0], hyp_[0])
     edits = sum([S, D, I])
 
     return edits
