@@ -109,7 +109,7 @@ wac_TED = WordAccuracyCalculator(reference, hypothesis)
 #### Example usage:
 
 ```python
-prc_TED.show_precision_recall_fscore()
+wac_TED.show_metrics()
 ```
 
 <img src="readme-img/metrics.PNG"></img>
